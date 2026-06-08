@@ -8,6 +8,10 @@ defmodule SSChatServiceWeb.Router do
 
   scope "/api", SSChatServiceWeb do
     pipe_through :api
+
+    get "/chat/conversations", ConversationController, :index
+    get "/chat/conversations/:id/messages", MessageController, :index
+    post "/chat/conversations/:id/messages", MessageController, :create
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

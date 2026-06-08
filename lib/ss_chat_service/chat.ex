@@ -21,6 +21,16 @@ defmodule SSChatService.Chat do
     Repo.all(Conversation)
   end
 
+  def list_user_conversations(user_id) do
+    query =
+      from c in Conversation,
+        join: p in assoc(c, :participants),
+        where: p.user_id == ^user_id,
+        preload: [:participants]
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single conversation.
 
@@ -117,6 +127,15 @@ defmodule SSChatService.Chat do
     Repo.all(Message)
   end
 
+  def list_conversation_messages(conversation_id) do
+    query =
+      from m in Message,
+        where: m.conversation_id == ^conversation_id,
+        order_by: [asc: m.inserted_at]
+
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single message.
 
@@ -149,7 +168,16 @@ defmodule SSChatService.Chat do
     %Message{}
     |> Message.changeset(attrs)
     |> Repo.insert()
+    |> broadcast_message()
   end
+
+  defp broadcast_message({:ok, message} = result) do
+    # Broadcast to Phoenix PubSub
+    Phoenix.PubSub.broadcast(SSChatService.PubSub, "room:#{message.conversation_id}", {:new_message, message})
+    result
+  end
+
+  defp broadcast_message(error), do: error
 
   @doc """
   Updates a message.
