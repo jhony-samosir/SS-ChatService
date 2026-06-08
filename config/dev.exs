@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :ss_chat_service, SSChatService.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "123456",
   hostname: "localhost",
   database: "ss_chat_db",
   stacktrace: true,

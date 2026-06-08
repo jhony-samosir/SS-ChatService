@@ -33,12 +33,8 @@ config :ss_chat_service, SSChatServiceWeb.Endpoint,
 config :ss_chat_service, SSChatService.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure Elixir's Logger
-config :logger, backends: [LoggerJSON]
-
-config :logger_json, :backend,
-  metadata: [:request_id, :trace_id, :span_id],
-  json_encoder: Jason,
-  formatter: LoggerJSON.Formatters.BasicLogger
+config :logger, :default_formatter,
+  format: {LoggerJSON.Formatters.BasicLogger, metadata: [:request_id, :trace_id, :span_id]}
 
 # OpenTelemetry Configuration
 config :opentelemetry, :processor,
