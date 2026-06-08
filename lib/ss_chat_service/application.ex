@@ -7,6 +7,9 @@ defmodule SSChatService.Application do
 
   @impl true
   def start(_type, _args) do
+    OpentelemetryPhoenix.setup(adapter: :bandit)
+    OpentelemetryEcto.setup([:ss_chat_service, :repo])
+
     children = [
       SSChatServiceWeb.Telemetry,
       SSChatService.Repo,

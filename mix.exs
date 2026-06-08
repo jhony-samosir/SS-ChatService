@@ -51,7 +51,13 @@ defmodule SSChatService.MixProject do
       {:gettext, "~> 1.0"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"}
+      {:bandit, "~> 1.5"},
+      {:opentelemetry, "~> 1.5"},
+      {:opentelemetry_api, "~> 1.4"},
+      {:opentelemetry_exporter, "~> 1.8"},
+      {:opentelemetry_phoenix, "~> 2.0.0-rc.1"},
+      {:opentelemetry_ecto, "~> 1.2"},
+      {:logger_json, "~> 6.0"}
     ]
   end
 

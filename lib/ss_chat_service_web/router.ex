@@ -3,6 +3,7 @@ defmodule SSChatServiceWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug SSChatServiceWeb.Plugs.HmacValidator
   end
 
   scope "/api", SSChatServiceWeb do

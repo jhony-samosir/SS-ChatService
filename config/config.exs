@@ -33,9 +33,18 @@ config :ss_chat_service, SSChatServiceWeb.Endpoint,
 config :ss_chat_service, SSChatService.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure Elixir's Logger
-config :logger, :default_formatter,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
+config :logger, backends: [LoggerJSON]
+
+config :logger_json, :backend,
+  metadata: [:request_id, :trace_id, :span_id],
+  json_encoder: Jason,
+  formatter: LoggerJSON.Formatters.BasicLogger
+
+# OpenTelemetry Configuration
+config :opentelemetry, :processor,
+  otel_batch_processor: %{
+    exporter: {:opentelemetry_exporter, %{endpoints: ["http://localhost:4317"]}}
+  }
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
