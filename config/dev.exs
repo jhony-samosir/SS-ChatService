@@ -5,7 +5,7 @@ config :ss_chat_service, SSChatService.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "ss_chat_service_dev",
+  database: "ss_chat_db",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
