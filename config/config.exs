@@ -10,10 +10,7 @@ import Config
 config :ss_chat_service,
   namespace: SSChatService,
   ecto_repos: [SSChatService.Repo],
-  generators: [timestamp_type: :utc_datetime, binary_id: true]
-
-config :ss_chat_service, SSChatService.Repo,
-  migration_primary_key: [name: :id, type: :binary_id]
+  generators: [timestamp_type: :utc_datetime]
 
 # Configure the endpoint
 config :ss_chat_service, SSChatServiceWeb.Endpoint,
